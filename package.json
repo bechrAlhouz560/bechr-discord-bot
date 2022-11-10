@@ -1,0 +1,24 @@
+{
+  "name": "bechr-discord-bot",
+  "version": "1.0.0",
+  "description": "This is my own discord bot",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bechrAlhouz560/bechr-discord-bot.git"
+  },
+  "keywords": [
+    "Discord",
+    "bot"
+  ],
+  "author": "Bicher Alhouz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bechrAlhouz560/bechr-discord-bot/issues"
+  },
+  "homepage": "https://github.com/bechrAlhouz560/bechr-discord-bot#readme"
+}
