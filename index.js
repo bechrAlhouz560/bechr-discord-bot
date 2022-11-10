@@ -7,6 +7,7 @@ const app = express();
 app.get('', function (req, res) {
     res.send('Welcome !')
 })
-app.listen(PORT, function () {
-    console.log('server is listening on ',PORT,'...')
-})
+
+
+
+module.exports = app;
