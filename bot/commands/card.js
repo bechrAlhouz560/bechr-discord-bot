@@ -80,6 +80,7 @@ async function genCard(p) {
         var newHeight = newWidth / wrh;
 
 
+        console.log('new height ', newHeight);
         if (newHeight < 350)
         {
             throw new Error('Error, Please try again !');
