@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Canvas = require('@napi-rs/canvas');
+
 
 const { AttachmentBuilder , SlashCommandBuilder } = require('discord.js');
 // lcm = 10000
@@ -16,17 +16,24 @@ const pointer = () => (Math.random()*10000).toFixed()
 async function genCard () {
     const response = await axios("https://api.waifu.pics/sfw/neko");
     const url  = response.data.url;
-    const canvas = Canvas.createCanvas(250, 350);
-	const context = canvas.getContext('2d');
+    try {
+        const Canvas = require('@napi-rs/canvas');
+        const canvas = Canvas.createCanvas(250, 350);
+	    const context = canvas.getContext('2d');
 
 
-    const image = await Canvas.loadImage(url);
-    context.drawImage(image,0,0);
+        const image = await Canvas.loadImage(url);
 
-    
+        
+        context.drawImage(image,0,0,250,350);
+
+        
 
 
-    return canvas.encodeSync('png');
+        return canvas.encodeSync('png');
+    } catch (error) {
+        return url;
+    }
 
 }
 module.exports = {
