@@ -16,7 +16,7 @@ const {
 const pointer = () => (Math.random() * 10000).toFixed()
 
 
-async function genCard() {
+async function genCard(p) {
     const response = await axios("https://api.waifu.pics/sfw/neko");
     const url = response.data.url;
     try {
@@ -24,12 +24,14 @@ async function genCard() {
         const canvas = Canvas.createCanvas(250, 350);
 
 
+        
         const context = canvas.getContext('2d');
 
 
         const image = await Canvas.loadImage(url);
         const bg = await Canvas.loadImage(path.resolve(__dirname , 'bg.png'));
-
+        const fill = await Canvas.loadImage(path.resolve(__dirname , 'fill.png'));
+        context.drawImage(fill,0,0);
         context.font = "20px";
         context.fillStyle = "white";
         var wrh = image.width / image.height;
@@ -44,7 +46,7 @@ async function genCard() {
         context.drawImage(image, xOffset, yOffset, newWidth, newHeight);
         context.drawImage(bg, 0, 0);
 
-        const level = pointer()+'p';
+        const level = p+'p';
         const t = context.measureText(level)
         context.fillText(level, 250 - t.width - 30, 30);
 
@@ -67,7 +69,7 @@ module.exports = {
      */
     execute: async function (interaction) {
 
-        const file = await genCard();
+        const file = await genCard(pointer());
 
         await interaction.reply({
             files: [await genCard()],
