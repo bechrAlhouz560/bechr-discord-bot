@@ -32,7 +32,7 @@ async function genCard(p) {
         const bg = await Canvas.loadImage(path.resolve(__dirname , 'bg.png'));
         const fill = await Canvas.loadImage(path.resolve(__dirname , 'fill.png'));
         context.drawImage(fill,0,0);
-        context.font = "30px";
+        context.font = "normal bold 30px arial";
         context.fillStyle = "white";
         var wrh = image.width / image.height;
         var newWidth = canvas.width;
