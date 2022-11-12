@@ -48,6 +48,7 @@ async function genCard(p) {
 
 
         
+        
         const context = canvas.getContext('2d');
 
 
