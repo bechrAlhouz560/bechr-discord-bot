@@ -19,13 +19,25 @@ async function genCard () {
     try {
         const Canvas = require('@napi-rs/canvas');
         const canvas = Canvas.createCanvas(250, 350);
-	    const context = canvas.getContext('2d');
 
+
+	    const context = canvas.getContext('2d');
+    
 
         const image = await Canvas.loadImage(url);
 
-        
-        context.drawImage(image,0,0,image.width * .5, height * .5);
+
+        var wrh = image.width / image.height;
+        var newWidth = canvas.width;
+        var newHeight = newWidth / wrh;
+        if (newHeight > canvas.height) {
+					newHeight = canvas.height;
+        	newWidth = newHeight * wrh;
+      	}
+        var xOffset = newWidth < canvas.width ? ((canvas.width - newWidth) / 2) : 0;
+        var yOffset = newHeight < canvas.height ? ((canvas.height - newHeight) / 2) : 0;
+
+        context.drawImage(image,xOffset,yOffset, newWidth, newHeight);
 
         
 
