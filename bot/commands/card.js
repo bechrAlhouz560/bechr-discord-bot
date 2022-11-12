@@ -16,6 +16,29 @@ const {
 const pointer = () => (Math.random() * 10000).toFixed()
 
 
+function getLevelBg (p) {
+    let file;
+    if (p <= 5)
+    {
+        file = 'legend.png'; 
+    }
+    else if (p <= 100)
+    {
+        file = 'rare.png'; 
+
+    }
+    else if (p <= 1000)
+    {
+        file = 'hard.png';
+    }
+    else {
+        file = 'normal.png';
+    }
+
+    return path.resolve(__dirname, 'cards',file);
+
+}
+
 async function genCard(p) {
     const response = await axios("https://api.waifu.pics/sfw/neko");
     const url = response.data.url;
@@ -29,7 +52,7 @@ async function genCard(p) {
 
 
         const image = await Canvas.loadImage(url);
-        const bg = await Canvas.loadImage(path.resolve(__dirname , 'bg.png'));
+        const bg = await Canvas.loadImage(getLevelBg(p));
         const fill = await Canvas.loadImage(path.resolve(__dirname , 'fill.png'));
         context.drawImage(fill,0,0);
         context.font = "30px";
