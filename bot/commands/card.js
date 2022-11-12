@@ -72,7 +72,7 @@ module.exports = {
         const file = await genCard(pointer());
 
         await interaction.reply({
-            files: [await genCard()],
+            files: [file],
             content: "Lucky Number is " + pointer()
         });
 
