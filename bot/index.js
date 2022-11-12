@@ -1,41 +1,20 @@
 const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
 const { initCommands } = require('./initCommands');
+const { initEvents } = require('./initEvents');
+
+
+
+
 
 
 function initClient (client) {
     client.commands = new Collection();
-
-
-
-    initCommands(client).then(function () {
-        client.on(Events.InteractionCreate, async interaction => {
-
-
-            if (!interaction.isChatInputCommand()) return;
-        
-            const command = interaction.client.commands.get(interaction.commandName);
-
-
-        
-            if (!command) {
-                console.error(`No command matching ${interaction.commandName} was found.`);
-                return;
-            }
-        
-            try {
-                await command.execute(interaction);
-            } catch (error) {
-                console.error(error);
-                await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-            }
-        });
-    });
-    
+    initCommands(client).then (() => initEvents(client));
 }
 
 module.exports.initBot = function () {
     // Create a new client instance
-    const client = new Client({ intents: [GatewayIntentBits.Guilds , 'DirectMessages'] });
+    const client = new Client({ intents: [GatewayIntentBits.Guilds  , 'MessageContent','DirectMessages' , 'GuildMessages'] });
 
     // When the client is ready, run this code (only once)
     // We use 'c' for the event parameter to keep it separate from the already defined 'client'
@@ -46,10 +25,11 @@ module.exports.initBot = function () {
 
     
     // Log in to Discord with your client's token
-    client.login(process.env.DISCORD_BOT);
+    client.login(process.env.DISCORD_BOT).then(() => initClient(client));
 
-    initClient(client);
 
+    
+    
     
 
 
