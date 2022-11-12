@@ -21,7 +21,7 @@ async function genCard(p) {
     const url = response.data.url;
     try {
         const Canvas = require('@napi-rs/canvas');
-        const canvas = Canvas.createCanvas(350, 450);
+        const canvas = Canvas.createCanvas(350, 550);
 
 
         
@@ -48,7 +48,7 @@ async function genCard(p) {
 
         const level = p+'p';
         const t = context.measureText(level)
-        context.fillText(level, 350 - t.width - 30, 30);
+        context.fillText(level, canvas.width - t.width - 30, 30);
 
 
 
