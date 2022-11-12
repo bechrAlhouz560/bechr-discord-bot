@@ -32,7 +32,7 @@ async function genCard(p) {
         const bg = await Canvas.loadImage(path.resolve(__dirname , 'bg.png'));
         const fill = await Canvas.loadImage(path.resolve(__dirname , 'fill.png'));
         context.drawImage(fill,0,0);
-        context.font = "20px";
+        context.font = "30px";
         context.fillStyle = "white";
         var wrh = image.width / image.height;
         var newWidth = canvas.width;
@@ -48,7 +48,7 @@ async function genCard(p) {
 
         const level = p+'p';
         const t = context.measureText(level)
-        context.fillText(level, canvas.width - t.width - 30, 30);
+        context.fillText(level, canvas.width - t.width - 35, 50);
 
 
 
