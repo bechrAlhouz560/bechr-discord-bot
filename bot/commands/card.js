@@ -1,7 +1,10 @@
 const axios = require('axios');
+const path = require('path')
 
-
-const { AttachmentBuilder , SlashCommandBuilder } = require('discord.js');
+const {
+    AttachmentBuilder,
+    SlashCommandBuilder
+} = require('discord.js');
 // lcm = 10000
 // 1 - 5: Super Rare
 // 6 - 100 : Rare
@@ -10,36 +13,42 @@ const { AttachmentBuilder , SlashCommandBuilder } = require('discord.js');
 // 1001 - 10000 : Normal
 
 
-const pointer = () => (Math.random()*10000).toFixed()
+const pointer = () => (Math.random() * 10000).toFixed()
 
 
-async function genCard () {
+async function genCard() {
     const response = await axios("https://api.waifu.pics/sfw/neko");
-    const url  = response.data.url;
+    const url = response.data.url;
     try {
         const Canvas = require('@napi-rs/canvas');
         const canvas = Canvas.createCanvas(250, 350);
 
 
-	    const context = canvas.getContext('2d');
-    
+        const context = canvas.getContext('2d');
+
 
         const image = await Canvas.loadImage(url);
+        const bg = await Canvas.loadImage(path.resolve(__dirname , 'bg.png'));
 
-
+        context.font = "20px";
+        context.fillStyle = "white";
         var wrh = image.width / image.height;
         var newWidth = canvas.width;
         var newHeight = newWidth / wrh;
         if (newHeight > canvas.height) {
-					newHeight = canvas.height;
-        	newWidth = newHeight * wrh;
-      	}
+            newHeight = canvas.height;
+            newWidth = newHeight * wrh;
+        }
         var xOffset = newWidth < canvas.width ? ((canvas.width - newWidth) / 2) : 0;
         var yOffset = newHeight < canvas.height ? ((canvas.height - newHeight) / 2) : 0;
+        context.drawImage(image, xOffset, yOffset, newWidth, newHeight);
+        context.drawImage(bg, 0, 0);
 
-        context.drawImage(image,xOffset,yOffset, newWidth, newHeight);
+        const level = pointer()+'p';
+        const t = context.measureText(level)
+        context.fillText(level, 250 - t.width - 30, 30);
 
-        
+
 
 
         return canvas.encodeSync('png');
@@ -49,20 +58,22 @@ async function genCard () {
 
 }
 module.exports = {
-    data : new SlashCommandBuilder().setName('card')
-    .setDescription('generate a card to deal with'),
+    data: new SlashCommandBuilder().setName('card')
+        .setDescription('generate a card to deal with'),
 
     /**
      * 
      * @param {import('discord.js').ChatInputCommandInteraction} interaction 
      */
-    execute : async function (interaction) {
+    execute: async function (interaction) {
 
         const file = await genCard();
 
-        console.log('file = ',file);
-        await interaction.reply({files : [await genCard()] , content : "Lucky Number is "+pointer()});
+        await interaction.reply({
+            files: [await genCard()],
+            content: "Lucky Number is " + pointer()
+        });
 
-        
+
     }
 }
