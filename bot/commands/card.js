@@ -57,6 +57,10 @@ module.exports = {
      * @param {import('discord.js').ChatInputCommandInteraction} interaction 
      */
     execute : async function (interaction) {
+
+        const file = await genCard();
+
+        console.log('file = ',file);
         await interaction.reply({files : [await genCard()] , content : "Lucky Number is "+pointer()});
 
         
