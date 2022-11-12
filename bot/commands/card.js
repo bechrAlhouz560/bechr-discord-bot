@@ -1,6 +1,10 @@
 const axios = require('axios');
 const path = require('path')
 
+
+
+
+
 const {
     AttachmentBuilder,
     SlashCommandBuilder
@@ -39,8 +43,17 @@ function getLevelBg (p) {
 
 }
 
+
+async function getImg () {
+    let types = ["https://api.waifu.pics/sfw/neko" , "https://neko-love.xyz/api/v1/neko"];
+    const animetype = Math.floor(Math.random() * types.length);
+
+
+    return await axios(types[animetype]);
+
+}
 async function genCard(p) {
-    const response = await axios("https://api.waifu.pics/sfw/neko");
+    const response = await getImg();
     const url = response.data.url;
     try {
         const Canvas = require('@napi-rs/canvas');
@@ -48,7 +61,7 @@ async function genCard(p) {
 
 
         
-        
+
         const context = canvas.getContext('2d');
 
 
