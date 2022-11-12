@@ -1,5 +1,5 @@
 const axios = require('axios');
-const canvas = require('@napi-rs/canvas');
+const Canvas = require('@napi-rs/canvas');
 
 const { AttachmentBuilder , SlashCommandBuilder } = require('discord.js');
 // lcm = 10000
@@ -16,17 +16,17 @@ const pointer = () => (Math.random()*10000).toFixed()
 async function genCard () {
     const response = await axios("https://api.waifu.pics/sfw/neko");
     const url  = response.data.url;
-    // const canvas = Canvas.createCanvas(250, 350);
-	// const context = canvas.getContext('2d');
+    const canvas = Canvas.createCanvas(250, 350);
+	const context = canvas.getContext('2d');
 
 
-    // const image = await Canvas.loadImage(url);
-    // context.drawImage(image,0,0);
+    const image = await Canvas.loadImage(url);
+    context.drawImage(image,0,0);
 
     
 
 
-    return url;
+    return canvas.encodeSync('png');
 
 }
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
      * @param {import('discord.js').ChatInputCommandInteraction} interaction 
      */
     execute : async function (interaction) {
-        await interaction.reply(await genCard() + ` pointer : ${pointer()}`);
+        await interaction.reply({files : [await genCard()] , content : "Lucky Number is "+pointer()});
 
         
     }
