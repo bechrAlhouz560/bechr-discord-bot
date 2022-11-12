@@ -25,7 +25,7 @@ async function genCard () {
         const image = await Canvas.loadImage(url);
 
         
-        context.drawImage(image,0,0,250,350);
+        context.drawImage(image,0,0,250);
 
         
 
