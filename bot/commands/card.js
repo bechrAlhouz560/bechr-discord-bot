@@ -68,24 +68,31 @@ async function genCard(p) {
         const image = await Canvas.loadImage(url);
 
 
-        if (image.height < 350)
-        {
-            throw new Error('Error, Please try again !');
-        }
-        const bg = await Canvas.loadImage(getLevelBg(p));
-        const fill = await Canvas.loadImage(path.resolve(__dirname , 'fill.png'));
+
+    
+        
+        
         context.drawImage(fill,0,0);
         context.font = "30px";
         context.fillStyle = "white";
         var wrh = image.width / image.height;
         var newWidth = canvas.width;
         var newHeight = newWidth / wrh;
+
+
+        if (newHeight < 350)
+        {
+            throw new Error('Error, Please try again !');
+        }
         if (newHeight > canvas.height) {
             newHeight = canvas.height;
             newWidth = newHeight * wrh;
         }
         var xOffset = newWidth < canvas.width ? ((canvas.width - newWidth) / 2) : 0;
         var yOffset = newHeight < canvas.height ? ((canvas.height - newHeight) / 2) : 0;
+
+        const bg = await Canvas.loadImage(getLevelBg(p));
+        const fill = await Canvas.loadImage(path.resolve(__dirname , 'fill.png'));
         context.drawImage(image, xOffset, yOffset, newWidth, newHeight);
         context.drawImage(bg, 0, 0);
 
@@ -115,10 +122,7 @@ module.exports = {
         try {
             const file = await genCard(pointer());
 
-            await interaction.reply({
-                files: [file],
-                content: "Lucky Number is " + pointer()
-            });
+            await interaction.reply({files: [file],});
         } catch (error) {
             interaction.reply(error);
         }
