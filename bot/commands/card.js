@@ -40,7 +40,7 @@ function getLevelBg (p) {
 }
 
 async function genCard(p) {
-    const response = await axios("https://random.imagecdn.app/350/550");
+    const response = await axios("https://api.waifu.pics/sfw/neko");
     const url = response.data.url;
     try {
         const Canvas = require('@napi-rs/canvas');
