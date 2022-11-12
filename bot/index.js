@@ -25,6 +25,8 @@ module.exports.initBot = function () {
 
     
     // Log in to Discord with your client's token
+
+    console.log('token = ' , process.env.DISCORD_BOT)
     client.login(process.env.DISCORD_BOT).then(() => initClient(client));
 
 
