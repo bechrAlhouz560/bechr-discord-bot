@@ -16,7 +16,9 @@ app.get('', function (req, res) {
 
 
 
-app.listen(PORT, async function () {
-    console.log('server is listening on localhost:',PORT);
-    initBot();
+initDb().then(function () {
+    app.listen(PORT, async function () {
+        console.log('server is listening on localhost:',PORT);
+        initBot();
+    })
 })

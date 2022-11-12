@@ -17,7 +17,7 @@ function initModels () {
 }
 
 module.exports.initDb = async function () {
-    const dev = 1;
+    const dev = 0;
 
     let sequelize;
     if (dev) {
@@ -28,17 +28,24 @@ module.exports.initDb = async function () {
             
         }) 
     } else {
-        sequelize = new Sequelize('mysql://databases.000webhost.com/', {
-            username: 'id18980016_bechralhouz',
-            password: '>u?l%hhF2{h$adP%',
+
+
+    
+        sequelize = new Sequelize({
+            username: 'epiz_32655975',
+            password: 'KpcD51DIQiLQ',
             dialect: 'mysql',
-            host: 'localhost',
-            database: 'id18980016_bechrbot'
+            database: 'epiz_32655975_discordbot',
+            host : "sql201.byetcluster.com",
+            port : 3306,
+            
         }) // Example for postgres
+
+        console.log('connected !')
     }
 
     try {
-        await sequelize.authenticate();
+        await sequelize.authenticate({retry : 2});
         global.sequelize = sequelize;
         initModels();
         console.log('Connection has been established successfully.');
