@@ -13,13 +13,11 @@ app.get("", function (req, res) {
   res.send("Welcome !");
 });
 
-// initDb().then(function () {
-//     app.listen(PORT, async function () {
-//         console.log('server is listening on localhost:', PORT);
-//         initBot();
-//     })
-// })
-
-initDb();
+initDb().then(function () {
+  app.listen(PORT, async function () {
+    console.log("server is listening on localhost:", PORT);
+    initBot();
+  });
+});
 
 module.exports = app;
