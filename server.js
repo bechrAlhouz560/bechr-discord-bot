@@ -1,8 +1,12 @@
 require('dotenv').config();
 
 const express = require('express');
-const {initBot} = require('./bot');
-const { initDb } = require('./db/initDb');
+const {
+    initBot
+} = require('./bot');
+const {
+    initDb
+} = require('./db/initDb');
 const PORT = process.env.PORT || 3000
 const app = express();
 
@@ -18,7 +22,7 @@ app.get('', function (req, res) {
 
 initDb().then(function () {
     app.listen(PORT, async function () {
-        console.log('server is listening on localhost:',PORT);
+        console.log('server is listening on localhost:', PORT);
         initBot();
     })
 })

@@ -8,21 +8,35 @@ const {
  * 
  * @returns {import('sequelize').Model}
  */
+
+
+
 function UserModel() {
-  return sequelize.define('User', {
+  const model = sequelize.define('User', {
     // Model attributes are defined here
-    firstName: {
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique : true
+    },
+    password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING
       // allowNull defaults to true
+    },
+
+    discord_id : {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique : true
     },
 
 
   }, {
     // Other model options go here
   });
+
+
+  return model;
 }
 module.exports = UserModel();

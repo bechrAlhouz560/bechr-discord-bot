@@ -17,7 +17,7 @@ function initModels () {
 }
 
 module.exports.initDb = async function () {
-    const dev = 0;
+    const dev = 1;
 
     let sequelize;
     if (dev) {
