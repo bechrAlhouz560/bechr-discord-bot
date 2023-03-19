@@ -19,5 +19,3 @@ initDb().then(function () {
     initBot();
   });
 });
-
-module.exports = app;
